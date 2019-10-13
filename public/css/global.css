@@ -1,0 +1,312 @@
+* {
+    --header: #1C1E21;
+    --backpage: #212327;
+    --background: #282A2F;
+    --almost-black: #0F0F10;
+    --black: #000000;
+    --title: #FFFFFF;
+    --text: #B3B3B3;
+    --text-min: #666769;
+    --dividers: #2E3138;
+    --accent: #d28ae4;
+    
+    --backpage-0op: #21232700;
+    --accent-hover: #b85acf;
+    --accent-50op: #d28ae488;
+    --accent-20op: #d28ae444;
+
+    --font-normal: 'Montserrat';
+    --font-monospace: 'Roboto Mono';
+    --font-weight-normal: 500;
+    --font-weight-bold: 800;
+
+    --box-margin: 30px;
+    --box-padding: 23px;
+    --content-width: 90%;
+    --content-max-width: 1200px;
+    --header-height: 80px;
+    --footer-height: 180px;
+}
+
+* {
+    font-family: var(--font-normal), 'Roboto', sans-serif;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+html, body, #app {
+    background-color: var(--backpage);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#app {
+    padding-top: calc(1.5 * var(--header-height));
+    height: unset !important;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: var(--header);
+    height: var(--header-height);
+    display: flex;
+    justify-content: center;
+}
+
+#header-content {
+    width: var(--content-width);
+    max-width: var(--content-max-width);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+#header-name {
+    font-size: 28px;
+}
+
+#header-name-portal {
+    display: inline-block;
+    color: var(--title);
+    font-weight: var(--font-weight-bold);
+    font-size: 28px;
+}
+
+#header-name-page {
+    --color: var(--accent);
+    display: inline-block;
+    color: var(--ccolor);
+    font-weight: var(--font-weight-normal);
+    padding-left: 5px;
+}
+
+#header-nav-desktop {
+    font-size: 18px;
+}
+
+#header-nav-mobile {
+    position: absolute;
+    right: 5%;
+    visibility: hidden;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 20px 15px;
+    color: var(--text);
+    font-size: 18px;
+    transition: all ease .2s;
+}
+.nav-button:hover { color: var(--title); }
+.nav-button.border {
+    padding: 7px 20px;
+    margin-left: 10px;
+    border: 2px solid var(--accent);
+    border-radius: 5px;
+    color: var(--accent);
+}
+.nav-button.border:hover { background: var(--accent-20op); }
+
+#content-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+#content {
+    width: var(--content-width);
+    max-width: var(--content-max-width);
+    min-height: calc(100vh - var(--footer-height) - var(--header-height) * 1.5);
+}
+
+footer {
+    width: 100%;
+    min-height: var(--footer-height);
+    background: var(--header);
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 100;
+}
+
+#footer-content {
+    width: var(--content-width);
+    max-width: var(--content-max-width);
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding-top: 50px;
+    flex-wrap: wrap;
+}
+
+.footer-column > *:not(h3) {
+    display: block;
+    color: var(--text);
+    font-weight: var(--font-weight-normal);
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+.footer-column > a:hover { color: var(--title); }
+
+
+
+/* UI KIT */
+
+button,.button {
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+    border: none;
+    color: var(--text);
+    background: var(--almost-black);
+    padding: 15px 40px;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: var(--font-weight-normal);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .2s ease;
+    outline: none;
+}
+button:active,.button:active {
+    transform: scale(.99);
+}
+button:hover,.button:hover {
+    background: var(--black);
+    color: var(--title);
+}
+button[major],.button[major] {
+    background: var(--accent);
+    color: var(--almost-black);
+}
+button[major]:hover,.button[major]:hover {
+    background: var(--accent-hover);
+    color: var(--black);
+}
+button[small] {
+    font-size: 14px;
+    padding: 7px 20px;
+    margin: 10px;
+    border-radius: 3px;
+}
+button[fixed],.button[fixed] {
+    width: 210px;
+    padding: 22px 40px;
+    flex-grow: 1;
+}
+
+h1 {
+    color: var(--title);
+    font-size: 40px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 10px;
+}
+h2, h3 {
+    color: var(--title);
+    font-size: 20px;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 24px;
+    margin: 30px 0 10px 0;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+h4 {
+    color: var(--text);
+    font-size: 18px;
+    font-weight: var(--font-weight-normal);
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+h5 {
+    color: var(--text);
+    font-size: 12px;
+    font-family: var(--font-monospace), monospace;
+    font-weight: var(--font-weight-normal);
+    margin: 4px;
+}
+h6 {
+    color: var(--text-min);
+    font-size: 12px;
+    font-weight: var(--font-weight-normal);
+    margin: 4px;
+}
+
+a {
+    display: block;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: var(--font-weight-normal);
+    padding: 3px 0;
+    transition: all .2s ease;
+}
+a:hover, a:active {
+    color: var(--title);
+}
+
+*[mono] {
+    font-family: var(--font-monospace), monospace;
+    font-weight: var(--font-weight-normal);
+}
+
+p {
+    font-size: 16px;
+    color: var(--text);
+    font-weight: var(--font-weight-normal);
+}
+
+div[center] {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    background: var(--background);
+    border-radius: 5px;
+    min-height: 50px;
+    padding: var(--box-padding);
+    margin-bottom: var(--box-margin);
+    box-shadow: 0 2px 3px #00000077;
+}
+
+hr {
+    color: var(--text-min);
+    background-color: currentColor !important;
+    border: 1px solid currentColor !important;
+    margin: 30px 0;
+}
+
+
+@media all and (max-width: 800px) {
+
+/*#header-nav-desktop {
+    visibility: hidden;
+}
+
+#header-nav-mobile {
+    visibility: visible;
+}*/
+
+.nav-button:not(.border) {
+    visibility: hidden;
+    position: absolute;
+    left: 5%;
+}
+
+}

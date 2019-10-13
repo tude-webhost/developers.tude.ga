@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tude API Documentation</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/public/lib/fonts.css">
+    <link rel="stylesheet" href="/public/lib/highlight.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/public/css/global.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/api_docs.css">
+    
+    <script src="/public/lib/vue.min.js"></script>
+    <script src="/public/lib/highlight.min.js"></script>
+    <script src="/public/lib/highlight-lang-json.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <gheader></gheader>
+
+        <div id="content-wrapper">
+            <div id="content">
+
+                <h1>Tude API v2</h1>
+                <h5>[ Base URL: api.tude.ga/v2 ]</h5>
+
+                <dist height="20px"></dist>
+
+                <a href="https://tude.ga/legal/terms" mono>Terms of Service</a>
+                <a href="mailto:tudeteam@gmail.com" mono>Contact</a>
+
+                <dist height="30px"></dist>
+
+                <hr>
+
+                <div class="tag" v-for="tag of tags" :open="!foldStatus['tag-'+tag.name]">
+                    <div class="tag-header" @click="Vue.set(foldStatus, 'tag-'+tag.name, !foldStatus['tag-'+tag.name])">
+                        <i class="tag-foldicon fas fa-angle-down"></i>
+                        <div class="tag-name" v-html="tag.name"></div>
+                        <div class="tag-desc" v-html="tag.desc"></div>
+                    </div>
+                    <div class="tag-content">
+                        <div class="endpoint" v-for="point of tag.items" :method="point.method" :open="!!foldStatus['endpoint-'+point.path+'-'+point.method]">
+                            <div class="endpoint-header" @click="Vue.set(foldStatus, 'endpoint-'+point.path+'-'+point.method, !foldStatus['endpoint-'+point.path+'-'+point.method])">
+                                <div class="endpoint-method" v-html="point.method"></div>
+                                <div class="endpoint-path" v-html="point.path"></div>
+                                <div class="endpoint-desc" v-html="point.desc"></div>
+                                <div class="endpoint-permission" v-html="point.permission"></div>
+                            </div>
+                            <div class="endpoint-content">
+                                <div class="ec-details" v-if="point.details" v-html="point.details"></div>
+                                <div class="ec-header" v-if="point.parameters && point.parameters.length">
+                                    <p class="main">Parameters</p>
+                                    <p class="sub" mono>* required</p>
+                                </div>
+                                <table class="ec-parameter" v-if="point.parameters && point.parameters.length">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                    <tr v-for="par of point.parameters">
+                                        <td mono v-html="par.name + (par.required?'*':'')"></td>
+                                        <td v-html="par.type"></td>
+                                        <td v-html="par.desc"></td>
+                                    </tr>
+                                </table>
+                                <div class="ec-header">
+                                    <p class="main">Response</p>
+                                </div>
+                                <pre><code class="json" v-html="varOrRender(point.response)"></code></pre>
+                                <div class="ec-header">
+                                    <p class="main">Response Codes</p>
+                                </div>
+                                <table class="ec-parameter">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Description</th>
+                                    </tr>
+                                    <tr v-for="(desc, code) of point.codes">
+                                        <td mono v-html="code"></td>
+                                        <td v-html="desc"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <gfooter></gfooter>
+    </div>
+
+
+    <script src="/public/js/global.js"></script>
+    <script src="/public/js/api_docs.js"></script>
+</body>
+</html>
