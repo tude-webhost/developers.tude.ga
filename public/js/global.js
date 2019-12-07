@@ -37,11 +37,11 @@ Vue.component('gheader', {
         <header>
             <div id="header-content">
                 <div id="header-name">
-                    <a href="/" id="header-name-portal">Tude Portal</a>
+                    <a href="/" id="header-name-portal">Tude Dev Portal</a>
                     <div id="header-name-page" v-if="pagename" :style="'--ccolor:'+color" v-html="pagename"></div>
                 </div>
                 <div id="header-nav-desktop">
-                    <a class="nav-button" href="/api/swagger">API</a>
+                    <a class="nav-button" href="/docs">Docs</a>
                     <a class="nav-button" href="/about">About</a>
                 </div>
                 <div id="header-nav-mobile">

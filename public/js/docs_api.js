@@ -32,7 +32,7 @@ app = new Vue({
                 items: [
                     {
                         path: '/oauth/authorize',
-                        desc: 'Usual Oauth2 Workflow',
+                        desc: 'Usual Oauth2 Workflow - NOT YET IMPLEMENTED',
                         details: 'A more detailed description here',
                         method: 'get',
                         produces: 'application/json',
@@ -73,7 +73,7 @@ app = new Vue({
                     },
                     {
                         path: '/oauth/token',
-                        desc: 'TODO',
+                        desc: 'TODO - NOT YET IMPLEMENTED',
                         details: 'A more detailed description here',
                         method: 'get',
                         produces: 'application/json',
@@ -95,25 +95,55 @@ app = new Vue({
                         desc: 'Create a new User',
                         details: 'A more detailed description here',
                         method: 'post',
-                        permission: 1,
+                        permission: 3,
                         produces: 'application/json',
                         parameters: [
                             {
                                 name: 'name',
                                 type: 'string',
-                                desc: 'name',
+                                desc: 'User\'s name',
                                 in: 'body',
                                 required: true
+                            },
+                            {
+                                name: 'type',
+                                type: 'integer',
+                                desc: 'Account type, default = 1',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'accounts',
+                                type: 'object<accountname:id>',
+                                desc: 'Valid 3rd party accounts: discord; Required if account type is higher than 1',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'email',
+                                type: 'string:email',
+                                desc: 'User\'s email; Required if account type is 1',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'password',
+                                type: 'string',
+                                desc: 'The User\'s password, not encrypted, proper encryption will be performed automatically',
+                                in: 'body',
+                                required: false
                             }
                         ],
                         response: '%user',
                         codes: {
-                            "200": 'Okay'
+                            "200": 'Okay',
+                            "400": 'Bad Request. missing required parameters',
+                            "401": 'Access denied. not authorized'
                         }
                     },
                     {
                         path: '/users',
-                        desc: 'Delete a User',
+                        desc: 'Delete a User - NOT YET IMPLEMENTED',
                         details: 'A more detailed description here',
                         method: 'delete',
                         permission: 4,
@@ -131,6 +161,40 @@ app = new Vue({
                         codes: {
                             "200": 'Okay'
                         }
+                    },
+                    {
+                        path: '/users/{userid}',
+                        desc: 'Get all accessable information about a user',
+                        details: 'The amount of information received might vary depending on the api-key\'s permission level and the requested user\'s privacy settings.',
+                        method: 'get',
+                        permission: 1,
+                        produces: 'application/json',
+                        parameters: [ ],
+                        response: '%user',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. invalid userid',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that id found',
+                            "502": 'Bad gateway. try again later'
+                        }
+                    },
+                    {
+                        path: '/users/find?{link}={discordid}',
+                        desc: 'Searches for a user by provided linked account.',
+                        details: 'Valid link types: discord. Example: /users/find?discord=12345678',
+                        method: 'get',
+                        permission: 3,
+                        produces: 'application/json',
+                        parameters: [ ],
+                        response: '%user',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. no search query defined',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that query found',
+                            "502": 'Bad gateway. try again later'
+                        }
                     }
                 ]
             },
@@ -139,8 +203,25 @@ app = new Vue({
                 desc: 'Tude Club Database',
                 items: [
                     {
+                        path: '/club/users',
+                        desc: 'Get or create tude club user profile',
+                        details: 'A more detailed description here',
+                        method: 'get',
+                        permission: 1,
+                        produces: 'application/json',
+                        parameters: [ ],
+                        response: '%clubuser',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. invalid userid',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that id found',
+                            "502": 'Bad gateway. try again later'
+                        }
+                    },
+                    {
                         path: '/club/leaderboard',
-                        desc: 'Get the leaderboard',
+                        desc: 'Get the leaderboard - NOT YET IMPLEMENTED',
                         details: 'A more detailed description here',
                         method: 'get',
                         permission: 1,
@@ -175,7 +256,7 @@ app = new Vue({
                     },
                     {
                         path: '/club/leaderboard',
-                        desc: 'Update the leaderboard',
+                        desc: 'Update the leaderboard - NOT YET IMPLEMENTED',
                         details: 'A more detailed description here',
                         method: 'post',
                         permission: 3,
@@ -196,7 +277,7 @@ app = new Vue({
                     },
                     {
                         path: '/club/memes',
-                        desc: 'Get generic statistics about the meme database',
+                        desc: 'Get generic statistics about the meme database - NOT YET IMPLEMENTED',
                         details: 'A more detailed description here',
                         method: 'get',
                         permission: 1,
@@ -210,7 +291,7 @@ app = new Vue({
                     },
                     {
                         path: '/club/memes',
-                        desc: 'Add a meme to the meme database',
+                        desc: 'Add a meme to the meme database - NOT YET IMPLEMENTED',
                         details: 'A more detailed description here',
                         method: 'post',
                         permission: 3,
@@ -266,7 +347,7 @@ app = new Vue({
                     },
                     {
                         path: '/club/memes/{id}',
-                        desc: 'Edit an existing meme',
+                        desc: 'Edit an existing meme - NOT YET IMPLEMENTED',
                         details: 'A more detailed description here',
                         method: 'post',
                         permission: 3,
@@ -315,7 +396,7 @@ app = new Vue({
                     },
                     {
                         path: '/club/badges',
-                        desc: 'Get all badges',
+                        desc: 'Get all badges - NOT YET IMPLEMENTED',
                         details: 'Returns an array of all available badges',
                         method: 'get',
                         permission: 1,
@@ -323,20 +404,6 @@ app = new Vue({
                         parameters: [
                         ],
                         response: '%badges',
-                        codes: {
-                            "200": 'Okay'
-                        }
-                    },
-                    {
-                        path: '/club/badges/{id}',
-                        desc: 'Get a certain badges',
-                        details: 'Since badges don\'t really change, it is prefered to load all badges in bulk using the endpoint above and store a local copy instead of requesting the data over and over again',
-                        method: 'get',
-                        permission: 1,
-                        produces: 'application/json',
-                        parameters: [
-                        ],
-                        response: '%badge',
                         codes: {
                             "200": 'Okay'
                         }
@@ -354,8 +421,10 @@ pong:
 }`,
 user:
 `{
+    "id": 0,
+    "type": 1,
     "name": "string",
-    "id": 0
+    "tag": 0
 }`,
 generic_success:
 `{ "success": "true" }`,
@@ -388,7 +457,7 @@ meme:
     "author": 0,
     "rating": 0,
     "id": 0,
-    "title": "",
+    "caption": "",
     "finder": ""
 }`,
 badges:
