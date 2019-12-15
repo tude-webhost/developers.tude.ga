@@ -180,7 +180,7 @@ app = new Vue({
                         }
                     },
                     {
-                        path: '/users/find?{link}={discordid}',
+                        path: '/users/find?{link}={uuid}',
                         desc: 'Searches for a user by provided linked account.',
                         details: 'Valid link types: discord. Example: /users/find?discord=12345678',
                         method: 'get',
@@ -195,6 +195,40 @@ app = new Vue({
                             "404": 'Not found. no user by that query found',
                             "502": 'Bad gateway. try again later'
                         }
+                    },
+                    {
+                        path: '/users/{userid}',
+                        desc: 'Update accessable user details',
+                        details: 'Depending on the api\'s access level, some values might not be changeable',
+                        method: 'post',
+                        permission: 1,
+                        produces: 'application/json',
+                        parameters: [ ],
+                        response: '{ success: true }',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. invalid userid',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that id found',
+                            "502": 'Bad gateway. try again later'
+                        }
+                    },
+                    {
+                        path: '/users/find?{link}={uuid}',
+                        desc: 'Update accessable user details',
+                        details: 'Depending on the api\'s access level, some values might not be changeable',
+                        method: 'post',
+                        permission: 1,
+                        produces: 'application/json',
+                        parameters: [ ],
+                        response: '{ success: true }',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. invalid userid',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that id found',
+                            "502": 'Bad gateway. try again later'
+                        }
                     }
                 ]
             },
@@ -203,8 +237,8 @@ app = new Vue({
                 desc: 'Tude Club Database',
                 items: [
                     {
-                        path: '/club/users',
-                        desc: 'Get or create tude club user profile',
+                        path: '/club/users/{userid}',
+                        desc: 'Get the Tude Club user profile',
                         details: 'A more detailed description here',
                         method: 'get',
                         permission: 1,
@@ -220,8 +254,59 @@ app = new Vue({
                         }
                     },
                     {
+                        path: '/club/users/find?{link}={uuid}',
+                        desc: 'Get the Tude Club user profile',
+                        details: 'A more detailed description here',
+                        method: 'get',
+                        permission: 3,
+                        produces: 'application/json',
+                        parameters: [ ],
+                        response: '%clubuser',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. invalid userid',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that id found',
+                            "502": 'Bad gateway. try again later'
+                        }
+                    },
+                    {
+                        path: '/club/users/{userid}',
+                        desc: 'Update the Tude Club user profile',
+                        details: 'A more detailed description here',
+                        method: 'post',
+                        permission: 1,
+                        produces: 'application/json',
+                        parameters: [ ],
+                        response: '{ success: true }',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. invalid userid',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that id found',
+                            "502": 'Bad gateway. try again later'
+                        }
+                    },
+                    {
+                        path: '/club/users/find?{link}={uuid}',
+                        desc: 'Update the Tude Club user profile',
+                        details: 'A more detailed description here',
+                        method: 'post',
+                        permission: 3,
+                        produces: 'application/json',
+                        parameters: [ ],
+                        response: '{ success: true }',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. invalid userid',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that id found',
+                            "502": 'Bad gateway. try again later'
+                        }
+                    },
+                    {
                         path: '/club/leaderboard',
-                        desc: 'Get the leaderboard - NOT YET IMPLEMENTED',
+                        desc: 'Get the leaderboard',
                         details: 'A more detailed description here',
                         method: 'get',
                         permission: 1,
@@ -256,10 +341,10 @@ app = new Vue({
                     },
                     {
                         path: '/club/leaderboard',
-                        desc: 'Update the leaderboard - NOT YET IMPLEMENTED',
+                        desc: 'Perform actions on the leaderboard',
                         details: 'A more detailed description here',
                         method: 'post',
-                        permission: 3,
+                        permission: 4,
                         produces: 'application/json',
                         parameters: [
                             {
@@ -396,7 +481,7 @@ app = new Vue({
                     },
                     {
                         path: '/club/badges',
-                        desc: 'Get all badges - NOT YET IMPLEMENTED',
+                        desc: 'Get all badges',
                         details: 'Returns an array of all available badges',
                         method: 'get',
                         permission: 1,
@@ -415,7 +500,7 @@ app = new Vue({
         objects: {
 pong:
 `{
-    "permission": 0,
+    "access": 0,
     "serverStatus": 200,
     "problems": [ ]
 }`,
