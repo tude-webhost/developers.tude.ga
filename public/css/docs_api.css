@@ -68,6 +68,7 @@
 
 .endpoint[method="get"] { --c: #569cf3; --b: #2b3544; --d: #2a3039; }
 .endpoint[method="post"] { --c: #61a95b; --b: #354034; --d: #2f3531; }
+.endpoint[method="put"] { --c: #d6b15f; --b: #3d3a2f; --d: #35332b; }
 .endpoint[method="delete"] { --c: #d03636; --b: #543232; --d: #3e2e30; }
 
 .endpoint-header {

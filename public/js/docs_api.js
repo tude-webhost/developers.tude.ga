@@ -16,7 +16,7 @@ app = new Vue({
                     {
                         path: '/ping',
                         desc: 'Ping the api',
-                        details: 'Usualy fired once on application start to check if the connection is running and to get information about latency, etc.',
+                        details: 'Usually fired once on application start to check if the connection is running and to get information about latency, etc.',
                         method: 'get',
                         produces: 'application/json',
                         response: '%pong',
@@ -129,7 +129,7 @@ app = new Vue({
                             {
                                 name: 'password',
                                 type: 'string',
-                                desc: 'The User\'s password, not encrypted, proper encryption will be performed automatically',
+                                desc: 'The user\'s password, not encrypted, proper encryption will be performed automatically',
                                 in: 'body',
                                 required: false
                             }
@@ -180,7 +180,7 @@ app = new Vue({
                         }
                     },
                     {
-                        path: '/users/find?{link}={uuid}',
+                        path: '/users/find?{platform}={uuid}',
                         desc: 'Searches for a user by provided linked account.',
                         details: 'Valid link types: discord. Example: /users/find?discord=12345678',
                         method: 'get',
@@ -198,13 +198,35 @@ app = new Vue({
                     },
                     {
                         path: '/users/{userid}',
-                        desc: 'Update accessable user details',
+                        desc: 'Update accessable user details - NOT YET IMPLEMENTED',
                         details: 'Depending on the api\'s access level, some values might not be changeable',
-                        method: 'post',
+                        method: 'put',
                         permission: 1,
                         produces: 'application/json',
-                        parameters: [ ],
-                        response: '{ success: true }',
+                        parameters: [
+                            {
+                                name: 'type',
+                                type: 'integer',
+                                desc: 'Account Type, only upgradeable.',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'name',
+                                type: 'string',
+                                desc: 'User\'s name',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'tag',
+                                type: 'integer',
+                                desc: 'User\'s tag; Must be between 0 - 9999; Use -1 to auto-reset',
+                                in: 'body',
+                                required: false
+                            }
+                        ],
+                        response: '%generic_success',
                         codes: {
                             "200": 'Okay',
                             "400": 'Bad request. invalid userid',
@@ -214,14 +236,36 @@ app = new Vue({
                         }
                     },
                     {
-                        path: '/users/find?{link}={uuid}',
-                        desc: 'Update accessable user details',
+                        path: '/users/find?{platform}={uuid}',
+                        desc: 'Update accessable user details - NOT YET IMPLEMENTED',
                         details: 'Depending on the api\'s access level, some values might not be changeable',
-                        method: 'post',
+                        method: 'put',
                         permission: 1,
                         produces: 'application/json',
-                        parameters: [ ],
-                        response: '{ success: true }',
+                        parameters: [
+                            {
+                                name: 'type',
+                                type: 'integer',
+                                desc: 'Account Type, only upgradeable.',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'name',
+                                type: 'string',
+                                desc: 'User\'s name',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'tag',
+                                type: 'integer',
+                                desc: 'User\'s tag; Must be between 0 - 9999; Use -1 to auto-reset',
+                                in: 'body',
+                                required: false
+                            }
+                        ],
+                        response: '%generic_success',
                         codes: {
                             "200": 'Okay',
                             "400": 'Bad request. invalid userid',
@@ -254,7 +298,7 @@ app = new Vue({
                         }
                     },
                     {
-                        path: '/club/users/find?{link}={uuid}',
+                        path: '/club/users/find?{platform}={uuid}',
                         desc: 'Get the Tude Club user profile',
                         details: 'A more detailed description here',
                         method: 'get',
@@ -274,11 +318,47 @@ app = new Vue({
                         path: '/club/users/{userid}',
                         desc: 'Update the Tude Club user profile',
                         details: 'A more detailed description here',
-                        method: 'post',
+                        method: 'put',
                         permission: 1,
                         produces: 'application/json',
-                        parameters: [ ],
-                        response: '{ success: true }',
+                        parameters: [
+                            {
+                                name: 'points',
+                                type: 'integer',
+                                desc: 'Set points; Use { add: 0 } or { remove: 0 } to add / remove points; Changing points will affect statistics',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'cookies',
+                                type: 'integer',
+                                desc: 'Set cookies; Use { add: 0 } or { remove: 0 } to add / remove cookies; Changing cookies will affect statistics',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'gems',
+                                type: 'integer',
+                                desc: 'Set gems; Use { add: 0 } or { remove: 0 } to add / remove gems; Changing gems will affect statistics',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'profile',
+                                type: 'object',
+                                desc: 'Update the user\'s profile. Possible settings: disp_badge',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'badges',
+                                type: 'object',
+                                desc: 'Update the user\'s badges. Use badgeids as keys and new amount as values. You may use { add: 0 } or { remove: 0 }',
+                                in: 'body',
+                                required: false
+                            }
+                        ],
+                        response: '%generic_success',
                         codes: {
                             "200": 'Okay',
                             "400": 'Bad request. invalid userid',
@@ -288,14 +368,100 @@ app = new Vue({
                         }
                     },
                     {
-                        path: '/club/users/find?{link}={uuid}',
+                        path: '/club/users/find?{platform}={uuid}',
                         desc: 'Update the Tude Club user profile',
+                        details: 'A more detailed description here',
+                        method: 'put',
+                        permission: 3,
+                        produces: 'application/json',
+                        parameters: [
+                            {
+                                name: 'points',
+                                type: 'integer',
+                                desc: 'Set points; Use { add: 0 } or { remove: 0 } to add / remove points; Changing points will affect statistics',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'cookies',
+                                type: 'integer',
+                                desc: 'Set cookies; Use { add: 0 } or { remove: 0 } to add / remove cookies; Changing cookies will affect statistics',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'gems',
+                                type: 'integer',
+                                desc: 'Set gems; Use { add: 0 } or { remove: 0 } to add / remove gems; Changing gems will affect statistics',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'profile',
+                                type: 'object',
+                                desc: 'Update the user\'s profile. Possible settings: disp_badge',
+                                in: 'body',
+                                required: false
+                            },
+                            {
+                                name: 'badges',
+                                type: 'object',
+                                desc: 'Update the user\'s badges. Use badgeids as keys and new amount as values. You may use { add: 0 } or { remove: 0 }',
+                                in: 'body',
+                                required: false
+                            }
+                        ],
+                        response: '%generic_success',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. invalid userid',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that id found',
+                            "502": 'Bad gateway. try again later'
+                        }
+                    },
+                    {
+                        path: '/club/users/{userid}',
+                        desc: 'Perform actions on the user',
                         details: 'A more detailed description here',
                         method: 'post',
                         permission: 3,
                         produces: 'application/json',
-                        parameters: [ ],
-                        response: '{ success: true }',
+                        parameters: [
+                            {
+                                name: 'actions',
+                                type: 'array',
+                                desc: 'A list of all the actions. Each action is represented as a JSON object with it\'s id as a string and depending on the action additional data. Example: { id: "claim_daily_reward" }',
+                                in: 'body',
+                                required: false
+                            }
+                        ],
+                        response: '%generic_success',
+                        codes: {
+                            "200": 'Okay',
+                            "400": 'Bad request. invalid userid',
+                            "401": 'Access denied. not authorized',
+                            "404": 'Not found. no user by that id found',
+                            "502": 'Bad gateway. try again later'
+                        }
+                    },
+                    {
+                        path: '/club/users/find?{platform}={uuid}',
+                        desc: 'Perform actions on the user',
+                        details: 'A more detailed description here',
+                        method: 'post',
+                        permission: 3,
+                        produces: 'application/json',
+                        parameters: [
+                            {
+                                name: 'actions',
+                                type: 'array',
+                                desc: 'A list of all the actions. Each action is represented as a JSON object with it\'s id as a string and depending on the action additional data. Example: { id: "claim_daily_reward" }',
+                                in: 'body',
+                                required: false
+                            }
+                        ],
+                        response: '%generic_success',
                         codes: {
                             "200": 'Okay',
                             "400": 'Bad request. invalid userid',
@@ -322,7 +488,7 @@ app = new Vue({
                             {
                                 name: 'entries',
                                 type: 'integer',
-                                desc: 'Entries per page. Default is 25. Maximum is 100',
+                                desc: 'Entries per page. Default is 10. Maximum is 30',
                                 in: 'query',
                                 required: false
                             },
@@ -434,7 +600,7 @@ app = new Vue({
                         path: '/club/memes/{id}',
                         desc: 'Edit an existing meme - NOT YET IMPLEMENTED',
                         details: 'A more detailed description here',
-                        method: 'post',
+                        method: 'put',
                         permission: 3,
                         produces: 'application/json',
                         parameters: [
@@ -509,10 +675,13 @@ user:
     "id": 0,
     "type": 1,
     "name": "string",
-    "tag": 0
+    "tag": 0,
+    "accounts": {
+        "discord": "123456"
+    }
 }`,
 generic_success:
-`{ "success": "true" }`,
+`{ success: true }`,
 leaderboard:
 `{
     "alltime": [
@@ -533,7 +702,8 @@ leaderboard:
             "points": 39700
         }
     ],
-    "season": 14
+    "season": 14,
+    "updated": 1442342142112
 }`,
 meme:
 `{
@@ -580,6 +750,33 @@ badge:
     "desc": "",
     "info": ""
 }`,
+clubuser:
+`
+{
+    "id": 0,
+    "points": 0,
+    "points_month": 0,
+    "cookies": 0,
+    "gems": 0,
+    "badges": {
+        "1": 1,
+    },
+    "profile": {
+        "disp_badge": 1
+    },
+    "level": 0,
+    "level_progress": 0.09508196721311475,
+    "user": {
+        "id": 0,
+        "type": 1,
+        "name": "string",
+        "tag": 0,
+        "accounts": {
+            "discord": "0"
+        }
+    }
+}
+`
         }
     },
     methods: {
@@ -588,7 +785,7 @@ badge:
             return obj;
         }
     },
-    updated: codeFormatter,
+    // updated: codeFormatter,
     mounted: codeFormatter
 });
 
