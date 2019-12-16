@@ -364,6 +364,7 @@ app = new Vue({
                             "400": 'Bad request. invalid userid',
                             "401": 'Access denied. not authorized',
                             "404": 'Not found. no user by that id found',
+                            "410": 'Gone. action not performable. response most likely contains a message object and / or problemid',
                             "502": 'Bad gateway. try again later'
                         }
                     },
@@ -417,6 +418,7 @@ app = new Vue({
                             "400": 'Bad request. invalid userid',
                             "401": 'Access denied. not authorized',
                             "404": 'Not found. no user by that id found',
+                            "410": 'Gone. action not performable. response most likely contains a message object and / or problemid',
                             "502": 'Bad gateway. try again later'
                         }
                     },
